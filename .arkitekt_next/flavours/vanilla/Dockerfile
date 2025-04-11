@@ -1,6 +1,6 @@
 FROM python:3.11-slim-buster
 
-RUN pip install numpy requests git+https://github.com/dorna-robotics/dorna2-python.git
+RUN pip install https://github.com/openUC2/UC2-REST/archive/refs/heads/master.zip
 
 RUN pip install "arkitekt-next[all]>=0.8.82"
 

@@ -1,53 +1,25 @@
 from arkitekt_next import register
 import time
-from dorna2 import Dorna
+import uc2rest
+
+port = "unknown"# # let it discover the port itself
+ESP32 = uc2rest.UC2Client(serialport=port, baudrate=115200, DEBUG=True, skipFirmwareCheck =True)
+
+# wake up open gripper
+ESP32.gripper.close(isBlocking=True)
+ESP32.gripper.open(isBlocking=True)
 
 @register
-def move_to_rest_position(speed: int = 1, timeout: int = 2) -> str:
+def open_gripper() -> str:
     """
     """
-    robot = Dorna()
-    robot.connect("192.168.43.122")
-    robot.set_motor(1)    
-    robot.play(timeout=-1, cmd="jmove", rel=1, j0=10, vel=1)
-    return "did it move?"
+    ESP32.gripper.open(isBlocking=True)
+    return "gripper opened"
 
 @register
-def move_to_microscope(speed: int = 1, timeout: int = 2) -> str:
+def close_gripper() -> str:
     """
     """
-    robot = Dorna()
-    robot.connect("192.168.43.122")
-    robot.set_motor(1)    
-    robot.play(timeout=-1, cmd="jmove", rel=1, j0=10, vel=1)
-    return "did it move?"
+    ESP32.gripper.close(isBlocking=True)
+    return "gripper closed"
 
-@register
-def move_to_opentrons(speed: int = 1, timeout: int = 2) -> str:
-    """
-    """
-    robot = Dorna()
-    robot.connect("192.168.43.122")
-    robot.set_motor(1)    
-    robot.play(timeout=-1, cmd="jmove", rel=1, j0=10, vel=1)
-    return "did it move?"
-
-@register
-def move_from_microscope_to_opentrons(speed: int = 1, timeout: int = 2) -> str:
-    """
-    """
-    robot = Dorna()
-    robot.connect("192.168.43.122")
-    robot.set_motor(1)    
-    robot.play(timeout=-1, cmd="jmove", rel=1, j0=10, vel=1)
-    return "did it move?"
-
-@register
-def move_from_microscope_to_opentrons(speed: int = 1, timeout: int = 2) -> str:
-    """
-    """
-    robot = Dorna()
-    robot.connect("192.168.43.122")
-    robot.set_motor(1)    
-    robot.play(timeout=-1, cmd="jmove", rel=1, j0=10, vel=1)
-    return "did it move?"
